@@ -22,12 +22,13 @@ const defaultFilters: BookFiltersState = {
 
 export function filterBooks(bookList: Book[], filters: BookFiltersState) {
   const normalizedSearchTerm = filters.searchTerm.trim();
+  const normalizedSearchTermLowercase = normalizedSearchTerm.toLowerCase();
 
   return bookList.filter((book) => {
     const matchesSearch =
-      normalizedSearchTerm.length === 0 ||
-      book.title.includes(normalizedSearchTerm) ||
-      book.author.includes(normalizedSearchTerm);
+      normalizedSearchTermLowercase.length === 0 ||
+      book.title.toLowerCase().includes(normalizedSearchTermLowercase) ||
+      book.author.toLowerCase().includes(normalizedSearchTermLowercase);
     const matchesGenre = filters.selectedGenre === "all" || book.genre === filters.selectedGenre;
     const matchesStatus =
       filters.readingStatus === "all" ||
